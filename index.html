@@ -9,37 +9,25 @@
             font-family: Arial, sans-serif;
             background: #f4f4f8;
             margin: 0;
-            padding: 40px 15px #0002;
-            color: white;
+            padding: 40px 15px;
+            color: #333;
         }
-        ul {
-            padding: 0;
-            list-style: none;
-        }
-        li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 0;
-            border-bottom: 1px solid #eee;
-            overflow-wrap: anywhere;
-        }
-        .delete {
-            background: #dc2626;
-            flex-shrink: 0;
-        }
-        .empty {
-            text-align: center;
-            color: #666;
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         h1 {
             text-align: center;
             color: #2563eb;
         }
-        .form-add-form {
+        .add-form {
             display: flex;
             gap: 8px;
+            margin-bottom: 20px;
         }
         input {
             flex: 1;
@@ -54,6 +42,28 @@
             border-radius: 6px;
             cursor: pointer;
             background: #2563eb;
+            color: white;
+        }
+        .delete {
+            background: #dc2626;
+            color: white;
+            padding: 6px 10px;
+        }
+        ul {
+            padding: 0;
+            list-style: none;
+        }
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .empty {
+            text-align: center;
+            color: #666;
         }
     </style>
 </head>
@@ -67,8 +77,8 @@
         <ul>
             {% for task in tasks %}
             <li>
-                <span>{{ task.name }}</span>
-                <form action="{{ url_for('delete_task', task_id=task.id) }}" method="post">
+                <span>{{ task }}</span>
+                <form action="{{ url_for('delete_task', task_id=loop.index0) }}" method="post" style="margin:0;">
                     <button class="delete" type="submit">Delete</button>
                 </form>
             </li>
