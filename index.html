@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f8;
+            margin: 0;
+            padding: 40px 15px #0002;
+            color: white;
+        }
+        ul {
+            padding: 0;
+            list-style: none;
+        }
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            overflow-wrap: anywhere;
+        }
+        .delete {
+            background: #dc2626;
+            flex-shrink: 0;
+        }
+        .empty {
+            text-align: center;
+            color: #666;
+        }
+        h1 {
+            text-align: center;
+            color: #2563eb;
+        }
+        .form-add-form {
+            display: flex;
+            gap: 8px;
+        }
+        input {
+            flex: 1;
+            min-width: 0;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        button {
+            padding: 10px 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My To-Do list</h1>
+        <form class="add-form" action="{{ url_for('add_task') }}" method="post">
+            <input type="text" name="task" placeholder="Enter a new task" required>
+            <button type="submit">Add</button>
+        </form>
+        <ul>
+            {% for task in tasks %}
+            <li>
+                <span>{{ task.name }}</span>
+                <form action="{{ url_for('delete_task', task_id=task.id) }}" method="post">
+                    <button class="delete" type="submit">Delete</button>
+                </form>
+            </li>
+            {% else %}
+            <li class="empty">No tasks added yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
