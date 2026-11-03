@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "builds": [ {
+  "builds": [
+    {
       "src": "app.py",
       "use": "@vercel/python"
-    } ],
+    }
+  ],
   "routes": [
     {
       "src": "/(.*)",
@@ -11,3 +13,14 @@
     }
   ]
 }
+
+
+
+### Step 2: Add `wsgi.py` (To help Vercel find Flask)
+Sometimes Vercel looks for a standard WSGI file to wrap Flask apps. Create a new file in your root folder named **`wsgi.py`** and put this inside:
+
+```python
+from app import app
+
+if __name__ == "__main__":
+    app.run()
